@@ -2,10 +2,14 @@ package com.example.schedule.service;
 
 import com.example.schedule.dto.request.CreateScheduleRequestDto;
 import com.example.schedule.dto.response.CreateScheduleResponseDto;
+import com.example.schedule.dto.response.GetScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,4 +37,28 @@ public class ScheduleService {
                 savedSchedule.getModifiedAt()
         );
     }
+
+    public List<GetScheduleResponseDto> getSchedules() {
+
+        List<Schedule> schedules = scheduleRepository.findAll();
+
+        List<GetScheduleResponseDto> responseDtos = new ArrayList<>();
+
+        for (Schedule schedule : schedules) {
+
+            GetScheduleResponseDto responseDto = new GetScheduleResponseDto(
+                    schedule.getId(),
+                    schedule.getTitle(),
+                    schedule.getContents(),
+                    schedule.getWriter(),
+                    schedule.getCreatedAt(),
+                    schedule.getModifiedAt()
+            );
+
+            responseDtos.add(responseDto);
+        }
+
+        return responseDtos;
+    }
+
 }
