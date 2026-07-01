@@ -27,8 +27,10 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public List<GetScheduleResponseDto> getSchedules() {
-        return scheduleService.getSchedules();
+    public List<GetScheduleResponseDto> getSchedules(
+            @RequestParam(required = false) String writer
+    ) {
+        return scheduleService.getSchedules(writer);
     }
 
     @GetMapping("/{id}")

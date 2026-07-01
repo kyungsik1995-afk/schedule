@@ -41,24 +41,32 @@ public class ScheduleService {
         );
     }
 
-    public List<GetScheduleResponseDto> getSchedules() {
+    public List<GetScheduleResponseDto> getSchedules(String writer) {
 
-        List<Schedule> schedules = scheduleRepository.findAll();
+        List<Schedule> schedules;
+
+        // writer 값이 있으면 → 작성자 기준 조회
+        if (writer != null && !writer.isEmpty()) {
+            schedules = scheduleRepository.findByWriterOrderByModifiedAtDesc(writer);
+        }
+        // writer 없으면 → 전체 조회
+        else {
+            schedules = scheduleRepository.findAllByOrderByModifiedAtDesc();
+        }
 
         List<GetScheduleResponseDto> responseDtos = new ArrayList<>();
 
         for (Schedule schedule : schedules) {
-
-            GetScheduleResponseDto responseDto = new GetScheduleResponseDto(
-                    schedule.getId(),
-                    schedule.getTitle(),
-                    schedule.getContents(),
-                    schedule.getWriter(),
-                    schedule.getCreatedAt(),
-                    schedule.getModifiedAt()
+            responseDtos.add(
+                    new GetScheduleResponseDto(
+                            schedule.getId(),
+                            schedule.getTitle(),
+                            schedule.getContents(),
+                            schedule.getWriter(),
+                            schedule.getCreatedAt(),
+                            schedule.getModifiedAt()
+                    )
             );
-
-            responseDtos.add(responseDto);
         }
 
         return responseDtos;
