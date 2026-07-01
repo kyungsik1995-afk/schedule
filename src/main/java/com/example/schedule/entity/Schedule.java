@@ -28,6 +28,7 @@ public class Schedule {
     private String password;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
