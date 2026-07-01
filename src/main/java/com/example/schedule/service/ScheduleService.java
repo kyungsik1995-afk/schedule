@@ -1,6 +1,7 @@
 package com.example.schedule.service;
 
 import com.example.schedule.dto.request.CreateScheduleRequestDto;
+import com.example.schedule.dto.request.DeleteScheduleRequestDto;
 import com.example.schedule.dto.request.UpdateScheduleRequestDto;
 import com.example.schedule.dto.response.CreateScheduleResponseDto;
 import com.example.schedule.dto.response.GetScheduleResponseDto;
@@ -106,4 +107,18 @@ public class ScheduleService {
         );
     }
 
+    public void deleteSchedule(
+            Long id,
+            DeleteScheduleRequestDto requestDto
+    ) {
+
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 일정이 없습니다."));
+
+        if (!schedule.getPassword().equals(requestDto.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        scheduleRepository.delete(schedule);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.schedule.controller;
 
 import com.example.schedule.dto.request.CreateScheduleRequestDto;
+import com.example.schedule.dto.request.DeleteScheduleRequestDto;
 import com.example.schedule.dto.request.UpdateScheduleRequestDto;
 import com.example.schedule.dto.response.CreateScheduleResponseDto;
 import com.example.schedule.dto.response.GetScheduleResponseDto;
@@ -43,6 +44,14 @@ public class ScheduleController {
             @RequestBody UpdateScheduleRequestDto requestDto
     ) {
         return scheduleService.updateSchedule(id, requestDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteSchedule(
+            @PathVariable Long id,
+            @RequestBody DeleteScheduleRequestDto requestDto
+    ) {
+        scheduleService.deleteSchedule(id, requestDto);
     }
 
 }
