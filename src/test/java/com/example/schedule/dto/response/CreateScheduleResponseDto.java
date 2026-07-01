@@ -1,0 +1,25 @@
+package com.example.schedule.dto.response;
+
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+
+@Getter
+public class CreateScheduleResponseDto {
+
+    private final Long id;
+    private final String title;
+    private final String contents;
+    private final String writer;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
+
+    public CreateScheduleResponseDto(Long id, String title, String contents, String writer, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.writer = writer;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
+}
